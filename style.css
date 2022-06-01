@@ -4,3 +4,12 @@
     color:white;
     display: flex;
 }
+
+.box{
+    
+    background-color: rgb(33, 33, 118);
+    color: white;
+    max-width: fit-content;
+    margin:3px;
+    
+}
