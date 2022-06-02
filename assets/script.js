@@ -1,3 +1,4 @@
+console.log(localStorage.getItem("city"));
 var input = document.getElementById('inputvalue');
 var btn = document.getElementById('btn');
 var city = document.getElementById('city');
@@ -21,13 +22,34 @@ var temp5 = document.getElementById('temp5');
 var wind5 = document.getElementById('wind5');
 var humidity5 = document.getElementById('humidity5');
 var cityStr = document.getElementById('cityStr');
-var cities = []; 
+var mystyle = document.getElementsByClassName('.mystle')
+
 
 var lat1 = "";
 var lon1 ="";
 var name= document.getElementById('name');
 
-btn.addEventListener('click', function(){
+if(!localStorage.getItem("city")){
+    var cities =[];
+}else{
+    var getcities = localStorage.getItem("city");
+    var cities=getcities.split(",");
+    console.log(cities);
+}
+
+//var storage = localStorage.getItem("city");
+//cityStorage.push(storage);
+//var cityStorage=cities.split(",");
+for(var i =0;i<cities.length;i++){
+   var buttonEl= document.createElement("button");
+    buttonEl.textContent=cities[i];
+    cityStr.appendChild(buttonEl);
+    buttonEl.classList.add("mystyle");
+    
+};
+
+function start(){
+btn.addEventListener('click', function start(){
 fetch('http://api.openweathermap.org/geo/1.0/direct?q='+input.value+'&limit=1&appid=1291db61f641ff72ce7519899878bf5a')
 .then(function(response){
     return response.json();
@@ -43,9 +65,10 @@ fetch('http://api.openweathermap.org/geo/1.0/direct?q='+input.value+'&limit=1&ap
     localStorage.setItem("city",cities);
     //var citystore = localStorage.getItem("city");
     //for(var i=0; i<citystore.length; i++){
-        var litsEL= document.createElement("li");
+        var litsEL= document.createElement("button");
         litsEL.textContent=cityEl;
         cityStr.appendChild(litsEL);
+        //litsEL.onclick = listElButtonClickHAndler;
    // }
 
     //document.createElement();
@@ -147,6 +170,7 @@ fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat1+'&lon='+lon1+'
 
 
 })
+
 // var windEl= data["current"];
 // wind = windEl;
 // console.log(windEl);
@@ -154,4 +178,6 @@ fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat1+'&lon='+lon1+'
 console.log(lat1);
 console.log(lon1);
 }) })
+}
 
+start()
